@@ -15,11 +15,11 @@ enum class ATOCTestFlag : uint32_t {
 	None = 0,
 	AlphaTest = 1,
 	MSAA = 2,
-	Blending = 3
+	Blending = 4
 };
 
 const ATOCMode Mode = ATOCMode::AMD;
-const uint32_t TestFlags = ((uint32_t)ATOCTestFlag::AlphaTest) | ((uint32_t)ATOCTestFlag::MSAA);
+const uint32_t TestFlags = ((uint32_t)ATOCTestFlag::MSAA);
 
 ATIATOC::ATIATOC(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk::Com<IDirect3DDevice9>&& device)
 	: D3D9Test(window, std::move(d3d9), std::move(device)) {
@@ -94,7 +94,7 @@ void ATIATOC::Render() {
 		device->SetRenderState(D3DRS_POINTSIZE, MAKEFOURCC('A', '2', 'M', '1'));
 	}
 
-	if ((TestFlags & ((uint32_t)ATOCTestFlag::Blending))) {
+	if ((TestFlags & ((uint32_t)ATOCTestFlag::Blending)) != 0) {
 		device->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
 		device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 		device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
