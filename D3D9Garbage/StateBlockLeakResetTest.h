@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include "D3D9Test.h"
 
 class StateBlockLeakResetTest : public D3D9Test {

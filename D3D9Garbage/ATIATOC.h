@@ -11,8 +11,6 @@ public:
 	void Render() override;
 
 private:
-	std::vector<uint8_t> readFile(const std::string_view& file);
-
 	dxvk::Com<IDirect3DVertexBuffer9> vb;
 	dxvk::Com<IDirect3DVertexShader9> vs;
 	dxvk::Com<IDirect3DPixelShader9> ps;

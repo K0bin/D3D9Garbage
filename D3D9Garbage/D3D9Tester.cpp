@@ -1,19 +1,28 @@
 #include "D3D9Tester.h"
 #include "StateBlockLeakResetTest.h"
 #include "ATIATOC.h"
+#include "NullStreamTest.h"
+#include "FFTest.h"
+#include "FFTexcoordTest.h"
+#include "StateBlockVertexOffsetTest.h"
 
 #include <array>
 
-const Test SELECTED_TEST = Test::ATIATOC;
+const Test SELECTED_TEST = Test::FixedFunctionTexcoord;
 
 D3D9Tester::D3D9Tester(HWND window) {
 	dxvk::Com<IDirect3D9> d3d9 = Direct3DCreate9(D3D_SDK_VERSION);
+	dxvk::Com<IDirect3DDevice9> device;
 
 	D3DPRESENT_PARAMETERS params = {
-		1280, 720, D3DFMT_UNKNOWN, 3, D3DMULTISAMPLE_NONE, 0, D3DSWAPEFFECT_DISCARD, window, true, false, D3DFMT_UNKNOWN, 0, 0, D3DPRESENT_INTERVAL_DEFAULT
+		640, 480, D3DFMT_UNKNOWN, 1, D3DMULTISAMPLE_NONE, 0, D3DSWAPEFFECT_DISCARD, window, true, true, D3DFMT_D24S8, 0, 0, D3DPRESENT_INTERVAL_DEFAULT
 	};
-	dxvk::Com<IDirect3DDevice9> device;
-	d3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, nullptr, D3DCREATE_FPU_PRESERVE | D3DCREATE_MULTITHREADED | D3DCREATE_PUREDEVICE | D3DCREATE_HARDWARE_VERTEXPROCESSING, &params, &device);
+	HRESULT res = d3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, nullptr, D3DCREATE_HARDWARE_VERTEXPROCESSING, &params, &device);
+
+	/*D3DPRESENT_PARAMETERS params = {
+		640, 480, D3DFMT_A8R8G8B8, 0, D3DMULTISAMPLE_NONE, 0, D3DSWAPEFFECT_DISCARD, nullptr, true, true, D3DFMT_D24S8, 0, 0, D3DPRESENT_INTERVAL_DEFAULT
+	};
+	HRESULT res = d3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, nullptr, D3DCREATE_HARDWARE_VERTEXPROCESSING, &params, &device);*/
 
 	switch (SELECTED_TEST)
 	{
@@ -23,6 +32,22 @@ D3D9Tester::D3D9Tester(HWND window) {
 
 	case Test::ATIATOC:
 		this->test = std::make_unique<ATIATOC>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::NullStream:
+		this->test = std::make_unique<NullStreamTest>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::FixedFunction:
+		this->test = std::make_unique<FFTest>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::StateBlockVertexOffset:
+		this->test = std::make_unique<StateBlockVertexOffsetTest>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::FixedFunctionTexcoord:
+		this->test = std::make_unique<FFTexcoordTest>(window, std::move(d3d9), std::move(device));
 		break;
 	}
 }

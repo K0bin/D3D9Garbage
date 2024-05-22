@@ -19,6 +19,10 @@ private:
 
 enum class Test {
 	StateBlockLeakReset,
-	ATIATOC
+	ATIATOC,
+	NullStream,
+	FixedFunction,
+	StateBlockVertexOffset,
+	FixedFunctionTexcoord
 };
 

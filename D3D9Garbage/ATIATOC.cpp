@@ -58,22 +58,6 @@ ATIATOC::ATIATOC(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk::Com<IDirect3DD
 	res = this->device->CreateRenderTarget(1280, 720, D3DFMT_A8R8G8B8, ((TestFlags & ((uint32_t)ATOCTestFlag::MSAA)) != 0) ? D3DMULTISAMPLE_4_SAMPLES : D3DMULTISAMPLE_NONE, 0, false, &this->rt, nullptr);
 }
 
-
-std::vector<uint8_t> ATIATOC::readFile(const std::string_view& fileName) {
-	std::vector<uint8_t> data;
-	std::string fileNameStr(fileName);
-	std::ifstream file(fileNameStr.c_str(), std::ios_base::binary);
-	if (!file) {
-		return data;
-	}
-	file.seekg(0, std::ios_base::end);
-	uint32_t length = file.tellg();
-	file.seekg(0, std::ios_base::beg);
-	data.resize(length);
-	file.read(reinterpret_cast<char*>(data.data()), length);
-	return data;
-}
-
 void ATIATOC::Render() {
 	device->BeginScene();
 

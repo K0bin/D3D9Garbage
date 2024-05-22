@@ -1,6 +1,8 @@
 #include "D3D9Test.h"
 
 #include <array>
+#include <fstream>
+#include <vector>
 
 D3D9Test::D3D9Test(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk::Com<IDirect3DDevice9>&& device) {
 	this->window = window;
@@ -37,4 +39,19 @@ void D3D9Test::Render() {
 	device->Clear(1, &rect, D3DCLEAR_TARGET, 0xFF00FFAA, 0.0f, 0);
 	device->EndScene();
 	device->Present(nullptr, nullptr, nullptr, nullptr);
+}
+
+std::vector<uint8_t> D3D9Test::readFile(const std::string_view& fileName) {
+	std::vector<uint8_t> data;
+	std::string fileNameStr(fileName);
+	std::ifstream file(fileNameStr.c_str(), std::ios_base::binary);
+	if (!file) {
+		return data;
+	}
+	file.seekg(0, std::ios_base::end);
+	uint32_t length = file.tellg();
+	file.seekg(0, std::ios_base::beg);
+	data.resize(length);
+	file.read(reinterpret_cast<char*>(data.data()), length);
+	return data;
 }

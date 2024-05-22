@@ -2,6 +2,8 @@
 
 #include "com_ptr.h"
 #include <memory>
+#include <string_view>
+#include <vector>
 
 #define D3D_DEBUG_INFO
 #include <d3d9.h>
@@ -22,4 +24,5 @@ protected:
 	HWND window;
 	dxvk::Com<IDirect3D9> d3d9;
 	dxvk::Com<IDirect3DDevice9> device;
+	std::vector<uint8_t> readFile(const std::string_view& file);
 };
