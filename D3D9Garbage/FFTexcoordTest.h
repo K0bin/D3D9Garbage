@@ -25,6 +25,6 @@ public:
 private:
 	dxvk::Com<IDirect3DVertexBuffer9> vb;
 	dxvk::Com<IDirect3DIndexBuffer9> ib;
-	dxvk::Com<IDirect3DTexture9> texture;
+	dxvk::Com<IDirect3DVolumeTexture9> texture;
 };
 

@@ -14,9 +14,9 @@ void FFTexcoordTest::Render() {
 	HRESULT res;
 
 	std::array<Vertex4, 3> quad = {
-		-1.0f, -1.0f, 0.1f, 1.0f,    0.0f, 0.0f, 0.0f, 2.0f,
-		-1.0f,  1.0f, 0.1f, 1.0f,    0.0f, 1.0f, 0.0f, 2.0f,
-		 1.0f,  1.0f, 0.1f, 1.0f,    1.0f, 1.0f, 0.0f, 2.0f,
+		-1.0f, -1.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 2.0f,
+		-1.0f,  1.0f, 0.0f, 1.0f,    0.0f, 1.0f, 0.5f, 2.0f,
+		 1.0f,  1.0f, 1.0f, 1.0f,    1.0f, 1.0f, 1.0f, 2.0f,
 	};
 	std::array<uint16_t, 3> indices = { 0, 1, 2 };
 
@@ -36,22 +36,24 @@ void FFTexcoordTest::Render() {
 	this->ib->Unlock();
 
 
-	res = this->device->CreateTexture(16, 16, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &this->texture, nullptr);
-	D3DLOCKED_RECT lockedRect = { 0 };
-	res = this->texture->LockRect(0, &lockedRect, nullptr, 0);
-	for (uint32_t y = 0; y < 16; y++) {
-		for (uint32_t x = 0; x < 16; x++) {
-			uint8_t* ptr = reinterpret_cast<uint8_t*>(lockedRect.pBits);
-			ptr += y * lockedRect.Pitch + x * 4;
+	res = this->device->CreateVolumeTexture(16, 16, 16, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &this->texture, nullptr);
+	D3DLOCKED_BOX lockedRect = { 0 };
+	res = this->texture->LockBox(0, &lockedRect, nullptr, 0);
+	for (uint32_t z = 0; z < 16; z++) {
+		for (uint32_t y = 0; y < 16; y++) {
+			for (uint32_t x = 0; x < 16; x++) {
+				uint8_t* ptr = reinterpret_cast<uint8_t*>(lockedRect.pBits);
+				ptr += z * lockedRect.SlicePitch + y * lockedRect.RowPitch + x * 4;
 
-			ptr[0] = uint8_t((float(x) / 15.0f) * 255.0f);
-			ptr[1] = uint8_t((float(y) / 15.0f) * 255.0f);
-			ptr[2] = 0;
-			ptr[3] = 255;
+				ptr[0] = uint8_t((float(x) / 15.0f) * 255.0f);
+				ptr[1] = uint8_t((float(y) / 15.0f) * 255.0f);
+				ptr[2] = uint8_t((float(z) / 15.0f) * 255.0f);
+				ptr[3] = 255;
+			}
 		}
 	}
-	this->texture->UnlockRect(0);
-	this->device->SetTexture(0, this->texture.ptr());
+	this->texture->UnlockBox(0);
+	res = this->device->SetTexture(0, this->texture.ptr());
 
 	D3DMATERIAL9 material = {
 		1.0f, 1.0f, 1.0f, 1.0f,
@@ -62,32 +64,35 @@ void FFTexcoordTest::Render() {
 	};
 	this->device->SetMaterial(&material);
 	res = this->device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
-	res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, 0);
-	//res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEPOSITION);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, 0);
+	res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEPOSITION);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR);
 	//res = this->device->SetTextureStageState(0, D3DTSS_COLOROP, COLOROPT);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, 0);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
-	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT1);
-	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT1 | D3DTTFF_PROJECTED);
+	res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4 | D3DTTFF_PROJECTED);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2 | D3DTTFF_PROJECTED);
-	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3 | D3DTTFF_PROJECTED);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4 | D3DTTFF_PROJECTED);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, 0xff | D3DTTFF_PROJECTED);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, 0xff);
-	res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_PROJECTED);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_PROJECTED);
 
 	D3DMATRIX mat = {
-		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
+		100.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 100.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 100.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 100.0f,
 	};
 	//res = this->device->SetTransform(D3DTS_TEXTURE0, &mat);
 
 	res = this->device->SetRenderState(D3DRS_LIGHTING, false);
 	res = this->device->SetStreamSource(0, this->vb.ptr(), 0, sizeof(Vertex4));
 	res = this->device->SetFVF(D3DFVF_XYZW | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE4(0));
+	//res = this->device->SetFVF(D3DFVF_XYZW);
 	res = this->device->SetIndices(this->ib.ptr());
 	res = this->device->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff0000ff, 1.0f, 0);
 	res = this->device->BeginScene();
