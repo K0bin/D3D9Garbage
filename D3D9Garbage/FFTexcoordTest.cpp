@@ -8,9 +8,6 @@
 
 FFTexcoordTest::FFTexcoordTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk::Com<IDirect3DDevice9>&& device)
 	: D3D9Test(window, std::move(d3d9), std::move(device)) {
-}
-
-void FFTexcoordTest::Render() {
 	HRESULT res;
 
 	std::array<Vertex4, 3> quad = {
@@ -55,6 +52,15 @@ void FFTexcoordTest::Render() {
 	this->texture->UnlockBox(0);
 	res = this->device->SetTexture(0, this->texture.ptr());
 
+	auto vsData = readFile("nullstream_vs.dxso");
+	auto psData = readFile("render_texcoords_ps.dxso");
+	res = this->device->CreatePixelShader(reinterpret_cast<DWORD*>(psData.data()), &this->ps);
+
+}
+
+void FFTexcoordTest::Render() {
+	HRESULT res;
+
 	D3DMATERIAL9 material = {
 		1.0f, 1.0f, 1.0f, 1.0f,
 		1.0f, 1.0f, 1.0f, 1.0f,
@@ -65,16 +71,18 @@ void FFTexcoordTest::Render() {
 	this->device->SetMaterial(&material);
 	res = this->device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, 0);
-	res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEPOSITION);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEPOSITION);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR);
+	res = this->device->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR | 1);
 	//res = this->device->SetTextureStageState(0, D3DTSS_COLOROP, COLOROPT);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, 0);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
-	res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3 | D3DTTFF_PROJECTED);
+	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4 | D3DTTFF_PROJECTED);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
-	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2 | D3DTTFF_PROJECTED);
+	res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2 | D3DTTFF_PROJECTED);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT4 | D3DTTFF_PROJECTED);
 	//res = this->device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, 0xff | D3DTTFF_PROJECTED);
@@ -93,6 +101,7 @@ void FFTexcoordTest::Render() {
 	res = this->device->SetStreamSource(0, this->vb.ptr(), 0, sizeof(Vertex4));
 	res = this->device->SetFVF(D3DFVF_XYZW | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE4(0));
 	//res = this->device->SetFVF(D3DFVF_XYZW);
+	res = this->device->SetPixelShader(this->ps.ptr());
 	res = this->device->SetIndices(this->ib.ptr());
 	res = this->device->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff0000ff, 1.0f, 0);
 	res = this->device->BeginScene();

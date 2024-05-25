@@ -97,4 +97,7 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\render_texcoords_ps.hlsl" />
+  </ItemGroup>
 </Project>
