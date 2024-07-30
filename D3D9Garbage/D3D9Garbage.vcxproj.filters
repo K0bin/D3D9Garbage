@@ -54,6 +54,12 @@
     <ClInclude Include="FFTexcoordTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BufferLocking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StretchRectTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D9Garbage.cpp">
@@ -81,6 +87,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FFTexcoordTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferLocking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StretchRectTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

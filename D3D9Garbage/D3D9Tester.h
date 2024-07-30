@@ -23,6 +23,8 @@ enum class Test {
 	NullStream,
 	FixedFunction,
 	StateBlockVertexOffset,
-	FixedFunctionTexcoord
+	FixedFunctionTexcoord,
+	BufferLocking,
+	StretchRect
 };
 
