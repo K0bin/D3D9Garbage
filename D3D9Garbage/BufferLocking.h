@@ -15,6 +15,9 @@ private:
 	dxvk::Com<IDirect3DIndexBuffer9> ib;
 	dxvk::Com<IDirect3DVertexDeclaration9> vertexDecl;
 
+	void* vbPtr;
+	void* ibPtr;
+
 	uint64_t frame = 0;
 
 };
