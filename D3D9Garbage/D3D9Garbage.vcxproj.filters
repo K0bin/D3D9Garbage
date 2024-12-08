@@ -60,6 +60,12 @@
     <ClInclude Include="StretchRectTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D3D9UnknownFormatNullTextures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureTypeTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D9Garbage.cpp">
@@ -95,6 +101,12 @@
     <ClCompile Include="StretchRectTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D3D9UnknownFormatNullTextures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureTypeTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3D9Garbage.rc">
@@ -111,5 +123,13 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\render_texcoords_ps.hlsl" />
+    <FxCompile Include="shaders\texture_type_vs.hlsl" />
+    <FxCompile Include="shaders\texture_type_ps.hlsl" />
+    <FxCompile Include="shaders\texture_type_ps_3d.hlsl" />
+    <FxCompile Include="shaders\texture_type_ps_cube.hlsl" />
+    <FxCompile Include="shaders\texture_type_vs_3.hlsl" />
+    <FxCompile Include="shaders\texture_type_ps_3.hlsl" />
+    <FxCompile Include="shaders\texture_type_ps_3d_3.hlsl" />
+    <FxCompile Include="shaders\texture_type_ps_cube_3.hlsl" />
   </ItemGroup>
 </Project>

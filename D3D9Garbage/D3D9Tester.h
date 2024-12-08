@@ -25,6 +25,8 @@ enum class Test {
 	StateBlockVertexOffset,
 	FixedFunctionTexcoord,
 	BufferLocking,
-	StretchRect
+	StretchRect,
+	UnkownFormatTextureCreation,
+	TextureType
 };
 
