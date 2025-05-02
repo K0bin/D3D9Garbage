@@ -110,8 +110,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>D3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>/DELAYLOAD:d3d9.dll</DelayLoadDLLs>
+      <AdditionalDependencies>D3d9.lib;D3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>/DELAYLOAD:d3d9.dll:d3d11.dll</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,6 +144,20 @@
     <ClInclude Include="FFTexcoordTest.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="NullStreamTest.h" />
+    <ClInclude Include="NvAPISLI.h" />
+    <ClInclude Include="NvAPI\nvapi.h" />
+    <ClInclude Include="NvAPI\NvApiDriverSettings.h" />
+    <ClInclude Include="NvAPI\nvapi_interface.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_common.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_d3dext.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_salend.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_salstart.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_sli.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_stereo.h" />
+    <ClInclude Include="NvAPI\nvapi_lite_surround.h" />
+    <ClInclude Include="NvAPI\nvHLSLExtns.h" />
+    <ClInclude Include="NvAPI\nvHLSLExtnsInternal.h" />
+    <ClInclude Include="NvAPI\nvShaderExtnEnums.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="TextureTypeTest.h" />
     <ClInclude Include="StateBlockLeakResetTest.h" />
@@ -161,6 +175,7 @@
     <ClCompile Include="FFTest.cpp" />
     <ClCompile Include="FFTexcoordTest.cpp" />
     <ClCompile Include="NullStreamTest.cpp" />
+    <ClCompile Include="NvAPISLI.cpp" />
     <ClCompile Include="StateBlockLeakResetTest.cpp" />
     <ClCompile Include="StateBlockVertexOffsetTest.cpp" />
     <ClCompile Include="StretchRectTest.cpp" />

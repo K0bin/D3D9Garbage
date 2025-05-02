@@ -66,6 +66,48 @@
     <ClInclude Include="TextureTypeTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NvAPISLI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\NvApiDriverSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_d3dext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_salend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_salstart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_sli.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_stereo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvapi_lite_surround.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvHLSLExtns.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvHLSLExtnsInternal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NvAPI\nvShaderExtnEnums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D9Garbage.cpp">
@@ -105,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextureTypeTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NvAPISLI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
