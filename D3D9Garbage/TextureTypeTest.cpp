@@ -7,12 +7,13 @@
 enum class TextureDimension {
 	Dim2D,
 	Dim3D,
-	DimCube
+	DimCube,
+	Null
 };
 
-static TextureDimension TextureToBind = TextureDimension::Dim2D;
-static TextureDimension TextureInShader = TextureDimension::DimCube;
-static uint32_t ShaderModel = 3;
+static TextureDimension TextureToBind = TextureDimension::DimCube;
+static TextureDimension TextureInShader = TextureDimension::Dim2D;
+static uint32_t ShaderModel = 2;
 
 TextureTypeTest::TextureTypeTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk::Com<IDirect3DDevice9>&& device)
 	: D3D9Test(window, std::move(d3d9), std::move(device)) {
@@ -56,7 +57,7 @@ TextureTypeTest::TextureTypeTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk
 	psData = readFile("texture_type_ps_cube_3.dxso");
 	res = this->device->CreatePixelShader(reinterpret_cast<DWORD*>(psData.data()), &this->ps_cube_3);
 
-	res = this->device->CreateTexture(16, 16, 1, 0, D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &this->texture2d, nullptr);
+	res = this->device->CreateTexture(16, 16, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &this->texture2d, nullptr);
 	D3DLOCKED_RECT lockedRect;
 	res = this->texture2d->LockRect(0, &lockedRect, nullptr, 0);
 	for (uint32_t y = 0; y < 16; y++) {
@@ -73,7 +74,7 @@ TextureTypeTest::TextureTypeTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk
 	}
 	res = this->texture2d->UnlockRect(0);
 
-	res = this->device->CreateVolumeTexture(16, 16, 16, 1, 0, D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &this->texture3d, nullptr);
+	res = this->device->CreateVolumeTexture(16, 16, 16, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &this->texture3d, nullptr);
 	D3DLOCKED_BOX lockedBox;
 	res = this->texture3d->LockBox(0, &lockedBox, nullptr, 0);
 	for (uint32_t z = 0; z < 16; z++) {
@@ -93,7 +94,7 @@ TextureTypeTest::TextureTypeTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk
 	}
 	res = this->texture3d->UnlockBox(0);
 
-	res = this->device->CreateCubeTexture(16, 1, 0, D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &this->textureCube, nullptr);
+	res = this->device->CreateCubeTexture(16, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &this->textureCube, nullptr);
 	for (uint32_t face = 0; face < 6; face++) {
 		lockedRect = {};
 		res = this->textureCube->LockRect((D3DCUBEMAP_FACES) face, 0, &lockedRect, nullptr, 0);
@@ -173,6 +174,10 @@ void TextureTypeTest::Render() {
 
 	case TextureDimension::DimCube:
 		this->device->SetTexture(0, this->textureCube.ptr());
+		break;
+
+	case TextureDimension::Null:
+		this->device->SetTexture(0, nullptr);
 		break;
 	}
 

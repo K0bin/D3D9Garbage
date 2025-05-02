@@ -16,6 +16,7 @@ PS_OUTPUT main(VS_OUTPUT ps_in)
 {
     PS_OUTPUT p_out;
     p_out.color = texCUBE(s_Cube, ps_in.texcoord.xyz);
+    p_out.color.rgb = p_out.color.aaa;
 
     return p_out;
 }
