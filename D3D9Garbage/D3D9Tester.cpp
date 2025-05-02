@@ -9,10 +9,11 @@
 #include "StretchRectTest.h"
 #include "D3D9UnknownFormatNullTextures.h"
 #include "TextureTypeTest.h"
+#include "NvAPISLI.h"
 
 #include <array>
 
-const Test SELECTED_TEST = Test::TextureType;
+const Test SELECTED_TEST = Test::BufferLocking;
 const bool EX = false;
 
 D3D9Tester::D3D9Tester(HWND window) {
@@ -92,6 +93,10 @@ D3D9Tester::D3D9Tester(HWND window) {
 
 	case Test::TextureType:
 		this->test = std::make_unique<TextureTypeTest>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::NvAPISLI:
+		this->test = std::make_unique<NVAPISLITest>(window, std::move(d3d9), std::move(device));
 		break;
 	}
 }
