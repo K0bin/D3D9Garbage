@@ -27,6 +27,7 @@ enum class Test {
 	BufferLocking,
 	StretchRect,
 	UnkownFormatTextureCreation,
-	TextureType
+	TextureType,
+	NvAPISLI
 };
 

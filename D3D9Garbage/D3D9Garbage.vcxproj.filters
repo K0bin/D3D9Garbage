@@ -176,5 +176,9 @@
     <FxCompile Include="shaders\texture_type_ps_3.hlsl" />
     <FxCompile Include="shaders\texture_type_ps_3d_3.hlsl" />
     <FxCompile Include="shaders\texture_type_ps_cube_3.hlsl" />
+    <FxCompile Include="shaders\atiatoc_vs.hlsl" />
+    <FxCompile Include="shaders\atiatoc_ps.hlsl" />
+    <FxCompile Include="shaders\nullstream_ps.hlsl" />
+    <FxCompile Include="shaders\nullstream_vs.hlsl" />
   </ItemGroup>
 </Project>

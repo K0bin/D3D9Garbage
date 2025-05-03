@@ -13,7 +13,7 @@
 
 #include <array>
 
-const Test SELECTED_TEST = Test::BufferLocking;
+const Test SELECTED_TEST = Test::ATIATOC;
 const bool EX = false;
 
 D3D9Tester::D3D9Tester(HWND window) {
