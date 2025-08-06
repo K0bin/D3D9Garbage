@@ -28,6 +28,10 @@ enum class Test {
 	StretchRect,
 	UnkownFormatTextureCreation,
 	TextureType,
-	NvAPISLI
+	NvAPISLI,
+	ResetScene,
+	LockMSAA,
+	StretchRectResolve,
+	RTSizeMismatch,
 };
 

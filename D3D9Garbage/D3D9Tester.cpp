@@ -10,11 +10,15 @@
 #include "D3D9UnknownFormatNullTextures.h"
 #include "TextureTypeTest.h"
 #include "NvAPISLI.h"
+#include "ResetScene.h"
+#include "LockableMSAATest.h"
+#include "StretchRectResolve.h"
+#include "RTSizeMismatchTest.h"
 
 #include <array>
 
-const Test SELECTED_TEST = Test::ATIATOC;
-const bool EX = false;
+const Test SELECTED_TEST = Test::StretchRect;
+const bool EX = true;
 
 D3D9Tester::D3D9Tester(HWND window) {
 	HRESULT res;
@@ -97,6 +101,22 @@ D3D9Tester::D3D9Tester(HWND window) {
 
 	case Test::NvAPISLI:
 		this->test = std::make_unique<NVAPISLITest>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::ResetScene:
+		this->test = std::make_unique<ResetScene>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::LockMSAA:
+		this->test = std::make_unique<LockableMSAATest>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::StretchRectResolve:
+		this->test = std::make_unique<StretchRectResolve>(window, std::move(d3d9), std::move(device));
+		break;
+
+	case Test::RTSizeMismatch:
+		this->test = std::make_unique<RTSizeMismatchTest>(window, std::move(d3d9), std::move(device));
 		break;
 	}
 }

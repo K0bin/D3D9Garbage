@@ -143,6 +143,7 @@
     <ClInclude Include="FFTest.h" />
     <ClInclude Include="FFTexcoordTest.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LockableMSAATest.h" />
     <ClInclude Include="NullStreamTest.h" />
     <ClInclude Include="NvAPISLI.h" />
     <ClInclude Include="NvAPI\nvapi.h" />
@@ -158,7 +159,10 @@
     <ClInclude Include="NvAPI\nvHLSLExtns.h" />
     <ClInclude Include="NvAPI\nvHLSLExtnsInternal.h" />
     <ClInclude Include="NvAPI\nvShaderExtnEnums.h" />
+    <ClInclude Include="ResetScene.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RTSizeMismatchTest.h" />
+    <ClInclude Include="StretchRectResolve.h" />
     <ClInclude Include="TextureTypeTest.h" />
     <ClInclude Include="StateBlockLeakResetTest.h" />
     <ClInclude Include="StateBlockVertexOffsetTest.h" />
@@ -174,10 +178,14 @@
     <ClCompile Include="D3D9UnknownFormatNullTextures.cpp" />
     <ClCompile Include="FFTest.cpp" />
     <ClCompile Include="FFTexcoordTest.cpp" />
+    <ClCompile Include="LockableMSAATest.cpp" />
     <ClCompile Include="NullStreamTest.cpp" />
     <ClCompile Include="NvAPISLI.cpp" />
+    <ClCompile Include="ResetScene.cpp" />
+    <ClCompile Include="RTSizeMismatchTest.cpp" />
     <ClCompile Include="StateBlockLeakResetTest.cpp" />
     <ClCompile Include="StateBlockVertexOffsetTest.cpp" />
+    <ClCompile Include="StretchRectResolve.cpp" />
     <ClCompile Include="StretchRectTest.cpp" />
     <ClCompile Include="TextureTypeTest.cpp" />
   </ItemGroup>

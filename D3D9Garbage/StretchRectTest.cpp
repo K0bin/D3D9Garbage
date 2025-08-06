@@ -191,6 +191,8 @@ StretchRectTest::StretchRectTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk
 	res = d3d9->CheckDeviceFormat(0, D3DDEVTYPE_HAL, D3DFMT_X8R8G8B8, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, D3DFMT_D32_LOCKABLE);
 	res = d3d9->CheckDepthStencilMatch(0, D3DDEVTYPE_HAL, D3DFMT_D32_LOCKABLE, D3DFMT_X8R8G8B8, D3DFMT_D24X8);
 	res = deviceEx->CreateDepthStencilSurfaceEx(1280, 720, D3DFMT_D32F_LOCKABLE, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, 0);
+    res = deviceEx->CreateDepthStencilSurfaceEx(1280, 720, D3DFMT_D32F_LOCKABLE, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_AUTOGENMIPMAP);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_AUTOGENMIPMAP);
 	//res = deviceEx->CreateDepthStencilSurfaceEx(1280, 720, D3DFMT_D32_LOCKABLE, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, 0);
 	//res = deviceEx->CreateDepthStencilSurfaceEx(1280, 720, D3DFMT_D32_LOCKABLE, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_DEPTHSTENCIL);
 
@@ -209,8 +211,48 @@ StretchRectTest::StretchRectTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk
     res = device->CreateOffscreenPlainSurface(128, 128, D3DFMT_YUY2, D3DPOOL_DEFAULT, &src, nullptr);
     res = device->CreateTexture(128, 128, 1, D3DUSAGE_RENDERTARGET, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dst, nullptr);
 
+
+    res = deviceEx->CreateOffscreenPlainSurface(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &src, nullptr);
+    res = device->CreateTexture(128, 128, 1, D3DUSAGE_RENDERTARGET, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dst, nullptr);
+
     dxvk::Com<IDirect3DSurface9> dstSurf;
     dst->GetSurfaceLevel(0, &dstSurf);
+
+
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, 0);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_DMAP);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_DONOTCLIP);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_NONSECURE);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_NPATCHES);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_POINTS);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_SOFTWAREPROCESSING);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_TEXTAPI);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_RESTRICTED_CONTENT);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_RESTRICT_SHARED_RESOURCE);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_RESTRICT_SHARED_RESOURCE_DRIVER);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_RENDERTARGET);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_DEPTHSTENCIL);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_AUTOGENMIPMAP);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_DYNAMIC);
+    res = deviceEx->CreateOffscreenPlainSurfaceEx(128, 128, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &dstSurf, nullptr, D3DUSAGE_WRITEONLY);
+
+
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_RENDERTARGET);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, 0);
+    D3DSURFACE_DESC desc;
+    src->GetDesc(&desc);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, true, &src, nullptr, D3DUSAGE_DYNAMIC);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_RESTRICTED_CONTENT);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_RESTRICT_SHARED_RESOURCE);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &src, nullptr, D3DUSAGE_RESTRICT_SHARED_RESOURCE_DRIVER);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONE, 0, true, &src, nullptr, 0);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_4_SAMPLES, 0, true, &src, nullptr, 0);
+    res = deviceEx->CreateRenderTargetEx(1280, 720, D3DFMT_X8R8G8B8, D3DMULTISAMPLE_NONMASKABLE, 4, true, &src, nullptr, 0);
+
+
+    //res = deviceEx->CreateTexture()
+
+
     RECT srcRect = { 16, 16, 32, 32 };
     RECT dstRect = { 32, 32, 48, 48};
     res = device->StretchRect(src.ptr(), &srcRect, dstSurf.ptr(), &dstRect, D3DTEXF_LINEAR);
@@ -221,6 +263,28 @@ StretchRectTest::StretchRectTest(HWND window, dxvk::Com<IDirect3D9>&& d3d9, dxvk
     dstRect.bottom = 64;
     res = device->StretchRect(src.ptr(), &srcRect, dstSurf.ptr(), &dstRect, D3DTEXF_NONE);
     res = device->StretchRect(dstSurf.ptr(), &srcRect, src.ptr(), &dstRect, D3DTEXF_NONE);
+
+    dxvk::Com<IDirect3DTexture9> tex1;
+    res = device->CreateTexture(1024, 1024, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex1, nullptr);
+    dxvk::Com<IDirect3DTexture9> tex2;
+    res = device->CreateTexture(1024, 1024, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex2, nullptr);
+    dxvk::Com<IDirect3DSurface9> surf1;
+    res = tex1->GetSurfaceLevel(0, &surf1);
+    dxvk::Com<IDirect3DSurface9> surf2;
+    res = tex2->GetSurfaceLevel(0, &surf2);
+    RECT rect = { 0, 0, 1024, 1024 };
+    res = device->StretchRect(surf1.ptr(), &rect, surf2.ptr(), &rect, D3DTEXF_NONE);
+    res = device->StretchRect(surf1.ptr(), nullptr, surf2.ptr(), &rect, D3DTEXF_NONE);
+    res = device->StretchRect(surf1.ptr(), &rect, surf2.ptr(), nullptr, D3DTEXF_NONE);
+    res = device->StretchRect(surf1.ptr(), nullptr, surf2.ptr(), nullptr, D3DTEXF_NONE);
+    dxvk::Com<IDirect3DSurface9> surf3;
+    res = device->CreateOffscreenPlainSurface(1024, 1024, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &surf3, nullptr);
+    res = device->StretchRect(surf1.ptr(), nullptr, surf3.ptr(), nullptr, D3DTEXF_NONE);
+    res = device->StretchRect(surf3.ptr(), nullptr, surf1.ptr(), nullptr, D3DTEXF_NONE);
+    dxvk::Com<IDirect3DSurface9> surf4;
+    res = device->CreateRenderTarget(1024, 1024, D3DFMT_A8R8G8B8, D3DMULTISAMPLE_NONE, 0, false, &surf4, nullptr);
+    res = device->StretchRect(surf1.ptr(), nullptr, surf4.ptr(), nullptr, D3DTEXF_NONE);
+    res = device->StretchRect(surf4.ptr(), nullptr, surf1.ptr(), nullptr, D3DTEXF_NONE);
 
 
 
